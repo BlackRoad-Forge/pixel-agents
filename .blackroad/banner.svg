@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="a2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B2B"/>
+      <stop offset="100%" stop-color="#FF2255"/>
+    </linearGradient>
+    <linearGradient id="sp2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B2B"/>
+      <stop offset="20%" stop-color="#FF2255"/>
+      <stop offset="40%" stop-color="#CC00AA"/>
+      <stop offset="60%" stop-color="#8844FF"/>
+      <stop offset="80%" stop-color="#4488FF"/>
+      <stop offset="100%" stop-color="#00D4FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="320" fill="url(#bg2)"/>
+  <rect x="0" y="0" width="1280" height="3" fill="url(#sp2)"/>
+  <text x="640" y="120" font-family="Space Grotesk, sans-serif" font-size="48" font-weight="700" fill="#fff" text-anchor="middle">pixel-agents</text>
+  <rect x="540" y="136" width="200" height="2" rx="1" fill="url(#a2)" opacity="0.5"/>
+  <text x="640" y="180" font-family="JetBrains Mono, monospace" font-size="16" fill="#fff" opacity="0.4" text-anchor="middle">The game interface where AI agents build real things</text>
+  <!-- Road dashes -->
+  <g opacity="0.3">
+    <rect x="480" y="210" width="32" height="2" rx="1" fill="#FF6B2B"/>
+    <rect x="528" y="210" width="32" height="2" rx="1" fill="#FF6B2B" opacity="0.7"/>
+    <rect x="576" y="210" width="32" height="2" rx="1" fill="#FF2255" opacity="0.5"/>
+    <rect x="624" y="210" width="32" height="2" rx="1" fill="#FF2255" opacity="0.35"/>
+    <rect x="672" y="210" width="32" height="2" rx="1" fill="#FF2255" opacity="0.2"/>
+    <rect x="720" y="210" width="32" height="2" rx="1" fill="#FF2255" opacity="0.1"/>
+  </g>
+  <text x="640" y="280" font-family="JetBrains Mono, monospace" font-size="12" fill="#fff" opacity="0.25" text-anchor="middle" letter-spacing="2">BLACKROAD WORLD LIBRARY · WORLD · PAVE TOMORROW</text>
+  <rect x="0" y="317" width="1280" height="3" fill="url(#sp2)"/>
+</svg>

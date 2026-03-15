@@ -1,0 +1,38 @@
+{"name": "pixel-agents",
+  "category": "worlds",
+  "brand": {
+    "primary": "#FF6B2B",
+    "secondary": "#FF2255",
+    "accent": "#FF6B2B",
+    "surface": "#0a0a0a",
+    "elevated": "#111111",
+    "border": "#222222",
+    "text": "#ffffff",
+    "textMuted": "rgba(255,255,255,0.5)",
+    "gradient": "linear-gradient(90deg, #FF6B2B, #FF2255, #CC00AA, #8844FF, #4488FF, #00D4FF)"
+  },
+  "office": {
+    "floor": {"h": 0, "s": 0, "b": -60, "c": 10, "colorize": true},
+    "floorAlt": {"h": 270, "s": 8, "b": -65, "c": 5, "colorize": true},
+    "wall": {"h": 0, "s": 0, "b": -75, "c": 0, "colorize": true},
+    "desk": "#111111",
+    "deskTop": "#1a1a1a",
+    "chair": "#0a0a0a",
+    "computer": "#222222",
+    "plant": "#00D4FF",
+    "accentGlow": "#FF6B2B"
+  },
+  "agents": {
+    "palette0": "#FF6B2B",
+    "palette1": "#FF2255",
+    "palette2": "#FF6B2B",
+    "palette3": "#FF2255",
+    "palette4": "#4488FF",
+    "palette5": "#00D4FF"
+  },
+  "fonts": {
+    "display": "Space Grotesk",
+    "mono": "JetBrains Mono",
+    "weights": [400, 600, 700]
+  }
+}

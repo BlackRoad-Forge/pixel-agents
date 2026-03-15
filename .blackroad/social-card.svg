@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B2B"/>
+      <stop offset="100%" stop-color="#FF2255"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B2B" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#FF2255" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="spectrum" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B2B"/>
+      <stop offset="20%" stop-color="#FF2255"/>
+      <stop offset="40%" stop-color="#CC00AA"/>
+      <stop offset="60%" stop-color="#8844FF"/>
+      <stop offset="80%" stop-color="#4488FF"/>
+      <stop offset="100%" stop-color="#00D4FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+  <!-- Top spectrum bar -->
+  <rect x="0" y="0" width="1280" height="3" fill="url(#spectrum)"/>
+  <!-- Category badge -->
+  <rect x="80" y="80" width="87" height="32" rx="4" fill="url(#accent)" opacity="0.9"/>
+  <text x="123" y="101" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="2">WORLD</text>
+  <!-- BR mark -->
+  <circle cx="1160" cy="110" r="40" fill="none" stroke="url(#accent)" stroke-width="1.5" opacity="0.5"/>
+  <text x="1160" y="120" font-family="Space Grotesk, sans-serif" font-size="26" font-weight="700" fill="#FF6B2B" text-anchor="middle" opacity="0.8">BR</text>
+  <!-- Project name -->
+  <text x="80" y="260" font-family="Space Grotesk, sans-serif" font-size="56" font-weight="700" fill="#fff">pixel-agents</text>
+  <!-- Accent underline -->
+  <rect x="80" y="278" width="200" height="2" rx="1" fill="url(#accent)" opacity="0.6"/>
+  <!-- Description -->
+  <text x="80" y="340" font-family="JetBrains Mono, monospace" font-size="18" fill="#fff" opacity="0.5">The game interface where AI agents build real things</text>
+  <!-- Road dashes -->
+  <g opacity="0.4">
+    <rect x="80" y="400" width="48" height="2" rx="1" fill="#FF6B2B"/>
+    <rect x="148" y="400" width="48" height="2" rx="1" fill="#FF6B2B" opacity="0.7"/>
+    <rect x="216" y="400" width="48" height="2" rx="1" fill="#FF2255" opacity="0.5"/>
+    <rect x="284" y="400" width="48" height="2" rx="1" fill="#FF2255" opacity="0.3"/>
+    <rect x="352" y="400" width="48" height="2" rx="1" fill="#FF2255" opacity="0.1"/>
+  </g>
+  <!-- Footer -->
+  <rect x="0" y="556" width="1280" height="84" fill="#000" opacity="0.6"/>
+  <text x="80" y="604" font-family="JetBrains Mono, monospace" font-size="14" fill="#fff" opacity="0.3" letter-spacing="1">BLACKROAD WORLD LIBRARY</text>
+  <text x="560" y="604" font-family="JetBrains Mono, monospace" font-size="14" fill="#fff" opacity="0.2">worlds</text>
+  <text x="1200" y="604" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="600" fill="#FF6B2B" text-anchor="end" opacity="0.7">blackroad.io</text>
+  <!-- Bottom spectrum bar -->
+  <rect x="0" y="637" width="1280" height="3" fill="url(#spectrum)"/>
+</svg>
