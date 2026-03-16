@@ -1,0 +1,20 @@
+{
+  "name": "pixel-agents",
+  "type": "fork",
+  "org": "blackboxprogramming",
+  "integration": {
+    "status": "active",
+    "added": "2026-03-16T04:14:29Z",
+    "version": "1.0.0"
+  },
+  "upstream": {
+    "synced": true,
+    "branch": "main"
+  },
+  "blackroad": {
+    "category": "game",
+    "tags": [],
+    "fleet_node": null,
+    "docs": "https://docs.blackroad.io"
+  }
+}
