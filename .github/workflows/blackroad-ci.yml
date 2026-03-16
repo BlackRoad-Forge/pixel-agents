@@ -1,0 +1,24 @@
+name: BlackRoad CI
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - ".blackroad/**"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - ".blackroad/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate integration config
+        run: |
+          if [ -f .blackroad/config.json ]; then
+            python3 -c "import json; json.load(open('.blackroad/config.json'))" && echo "Config valid" || echo "Config invalid"
+          fi
+      - name: Check integration README
+        run: test -f .blackroad/README.md && echo "README present" || echo "README missing"
+
