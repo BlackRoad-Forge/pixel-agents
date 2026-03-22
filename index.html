@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pixel-agents — BlackRoad OS</title>
+<meta name="description" content="Pixel art engine with 25 furniture types, auto-tiling, sprite management, and world composition tools. The rendering backbone for all BlackRoad pixel environments.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --card: #131313;
+  --border: #1a1a1a;
+  --text: #e0e0e0;
+  --text-dim: #888;
+  --text-bright: #fff;
+  --pink: #ff1d6c;
+  --amber: #f5a623;
+  --blue: #2979ff;
+  --violet: #9c27b0;
+  --green: #4caf50;
+  --gradient: linear-gradient(90deg, #ff1d6c, #f5a623, #2979ff, #9c27b0);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.gradient-bar {
+  height: 2px;
+  background: var(--gradient);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spectrum-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--gradient);
+  position: relative;
+}
+
+.spectrum-mark::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.nav-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-bright);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text-bright); }
+
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--text-bright);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+.hero-why {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.hero-why h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-why p {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin: 0;
+  max-width: none;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+
+.feature-card:hover {
+  border-color: #2a2a2a;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.feature-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.integration {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.integration-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .integration-card { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.integration-info h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+}
+
+.integration-info p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.integration-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  min-width: 60px;
+}
+
+.meta-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-bright);
+}
+
+.integration-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.diagram-node {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.diagram-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.diagram-dot.pink { background: var(--pink); }
+.diagram-dot.amber { background: var(--amber); }
+.diagram-dot.blue { background: var(--blue); }
+.diagram-dot.green { background: var(--green); }
+
+.diagram-connector {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin-left: 1.6rem;
+}
+
+footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--text-bright); }
+</style>
+</head>
+<body>
+<div class="gradient-bar"></div>
+
+<nav>
+  <div class="nav-left">
+    <div class="spectrum-mark"></div>
+    <span class="nav-title">pixel-agents</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#integration">Integration</a></li>
+    <li><a href="https://blackroad.io">BlackRoad OS</a></li>
+    <li><a href="https://github.com/blackboxprogramming/pixel-agents">GitHub</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">BlackRoad OS Fork</div>
+  <h1>pixel-agents</h1>
+  <p class="hero-tagline">Pixel world builder.</p>
+  <p>Pixel art engine with 25 furniture types, auto-tiling, sprite management, and world composition tools. The rendering backbone for all BlackRoad pixel environments.</p>
+  <div class="hero-why">
+    <h3>Why BlackRoad Forked This</h3>
+    <p>Every pixel environment in BlackRoad — the HQ, the city, the offices — needs a shared rendering engine. pixel-agents provides auto-tiling, sprite sheets, furniture placement, and the world composition tools that make pixel worlds possible.</p>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-title">What Makes This Fork Special</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">&#9670;</div>
+      <h3>Auto-Tiling</h3>
+      <p>Wang tile algorithm automatically selects the correct tile variant based on neighbors. No manual tile placement.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9674;</div>
+      <h3>25 Furniture Types</h3>
+      <p>Desks, chairs, monitors, plants, whiteboards, coffee machines — everything an office needs.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9632;</div>
+      <h3>Sprite Management</h3>
+      <p>Efficient sprite sheet loading, animation frames, and GPU-batched rendering for smooth performance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9654;</div>
+      <h3>World Composition</h3>
+      <p>Layer-based world editor with collision maps, interaction zones, and spawn points.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9650;</div>
+      <h3>Lighting</h3>
+      <p>Dynamic lighting with ambient, point, and directional sources. Day/night cycles for atmosphere.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#9660;</div>
+      <h3>Export Pipeline</h3>
+      <p>Export worlds as JSON, PNG tilesheets, or standalone HTML. Embed pixel worlds anywhere.</p>
+    </div>
+  </div>
+</section>
+
+<section class="integration" id="integration">
+  <div class="section-title">BlackRoad OS Integration</div>
+  <div class="integration-card">
+    <div class="integration-info">
+      <h2>Part of the Fleet</h2>
+      <p>pixel-agents provides the rendering engine used by pixel-office, isometric-city, and moltcraft. Assets are stored on MinIO (Cecilia) and served through the CDN. The auto-tiling system generates new environments procedurally for agent training scenarios.</p>
+      <div class="integration-meta">
+        <div class="meta-item">
+          <span class="meta-label">Node</span>
+          <span class="meta-value">Octavia (.101) Worker</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Agent</span>
+          <span class="meta-value">Artist</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Port</span>
+          <span class="meta-value">:9002</span>
+        </div>
+      </div>
+    </div>
+    <div class="integration-diagram">
+      <div class="diagram-node">
+        <div class="diagram-dot pink"></div>
+        <span>pixel-agents</span>
+      </div>
+      <div class="diagram-connector"></div>
+      <div class="diagram-node">
+        <div class="diagram-dot amber"></div>
+        <span>BlackRoad Agent Mesh</span>
+      </div>
+      <div class="diagram-connector"></div>
+      <div class="diagram-node">
+        <div class="diagram-dot blue"></div>
+        <span>Octavia (.101) Worker (Pi Fleet)</span>
+      </div>
+      <div class="diagram-connector"></div>
+      <div class="diagram-node">
+        <div class="diagram-dot green"></div>
+        <span>blackroad.io</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">&copy; 2025-2026 BlackRoad OS, Inc. &mdash; Pave Tomorrow.</span>
+  <ul class="footer-links">
+    <li><a href="https://blackroad.io">Home</a></li>
+    <li><a href="https://github.com/BlackRoad-OS-Inc">GitHub</a></li>
+    <li><a href="https://hq.blackroad.io">HQ</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
